@@ -133,6 +133,17 @@ class CPU:
                 instruction_register[operand_a] = operand_b
                 self.pc += 3
 
+            elif instruction == HLT:
+                print("The program has reached a HALT function and is now ending. Thanks for playing.")
+                self.running = False
+
+            else:
+                print(f'Unknown instruction: {instruction}. The program will now force exit.')
+                self.running = False
+                sys.exit(1)
+            
+
+
 
     def ram_read(self, address):    # Should accept the address to read and return the value stored there.
         return self.ram[address]
