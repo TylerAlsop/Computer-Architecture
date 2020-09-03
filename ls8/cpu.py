@@ -6,56 +6,55 @@
 import sys
 
 ## ALU ops
-```
-ADD = 10100000
-SUB = 10100001
-MUL = 10100010
-DIV = 10100011
-MOD = 10100100
+# ADD = 10100000
+# SUB = 10100001
+# MUL = 10100010
+# DIV = 10100011
+# MOD = 10100100
 
-INC = 01100101
-DEC = 01100110
+# INC = 01100101
+# DEC = 01100110
 
-CMP = 10100111
+# CMP = 10100111
 
-AND = 10101000
-NOT = 01101001
-OR = 10101010
-XOR = 10101011
-SHL = 10101100
-SHR = 10101101
+# AND = 10101000
+# NOT = 01101001
+# OR = 10101010
+# XOR = 10101011
+# SHL = 10101100
+# SHR = 10101101
 
-## PC mutators
+# ## PC mutators
 
-CALL = 01010000
-RET = 00010001
+# CALL = 01010000
+# RET = 00010001
 
-INT = 01010010
-IRET = 00010011
+# INT = 01010010
+# IRET = 00010011
 
-JMP = 01010100
-JEQ = 01010101
-JNE = 01010110
-JGT = 01010111
-JLT = 01011000
-JLE = 01011001
-JGE = 01011010 
+# JMP = 01010100
+# JEQ = 01010101
+# JNE = 01010110
+# JGT = 01010111
+# JLT = 01011000
+# JLE = 01011001
+# JGE = 01011010 
 
-## Other
-NOP = 00000000
+# ## Other
+# NOP = 00000000
 
-HLT = 00000001 
+# HLT = 00000001 
 
-LDI = 10000010
+# LDI = 10000010
 
-LD = 10000011
-ST = 10000100
+# LD = 10000011
+# ST = 10000100
 
-PUSH = 01000101
-POP = 01000110
+# PUSH = 01000101
+# POP = 01000110
 
-PRN = 01000111
-PRA = 01001000
+# PRN = 01000111
+# PRA = 01001000
 
 class CPU:
     """Main CPU class."""
@@ -133,8 +132,6 @@ class CPU:
             if instruction == LDI:
                 instruction_register[operand_a] = operand_b
                 self.pc += 3
-
-
 
 
     def ram_read(self, address):    # Should accept the address to read and return the value stored there.
