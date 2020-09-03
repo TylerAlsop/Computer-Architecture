@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+# Run this file to test your code.
+
 """Main."""
 
 import sys

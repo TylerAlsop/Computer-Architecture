@@ -1,4 +1,7 @@
 """CPU functionality."""
+# Do all your work in this file and run it in ls8.py
+# This has a CPU class which needs an __init__, alu(), and run() implemented
+
 
 import sys
 
@@ -7,6 +10,7 @@ class CPU:
 
     def __init__(self):
         """Construct a new CPU."""
+        # add a list for self.ram
         pass
 
     def load(self):
@@ -62,4 +66,5 @@ class CPU:
 
     def run(self):
         """Run the CPU."""
+        # This is where to add the while loop containing if, ifelse, else statements.
         pass
