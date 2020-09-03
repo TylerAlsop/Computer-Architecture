@@ -6,55 +6,55 @@
 import sys
 
 ## ALU ops
-# ADD = 10100000
-# SUB = 10100001
-# MUL = 10100010
-# DIV = 10100011
-# MOD = 10100100
+ADD = 0b10100000
+SUB = 0b10100001
+MUL = 0b10100010
+DIV = 0b10100011
+MOD = 0b10100100
 
-# INC = 01100101
-# DEC = 01100110
+INC = 0b01100101
+DEC = 0b01100110
 
-# CMP = 10100111
+CMP = 0b10100111
 
-# AND = 10101000
-# NOT = 01101001
-# OR = 10101010
-# XOR = 10101011
-# SHL = 10101100
-# SHR = 10101101
+AND = 0b10101000
+NOT = 0b01101001
+OR = 0b10101010
+XOR = 0b10101011
+SHL = 0b10101100
+SHR = 0b10101101
 
-# ## PC mutators
+## PC mutators
 
-# CALL = 01010000
-# RET = 00010001
+CALL = 0b01010000
+RET = 0b00010001
 
-# INT = 01010010
-# IRET = 00010011
+INT = 0b01010010
+IRET = 0b00010011
 
-# JMP = 01010100
-# JEQ = 01010101
-# JNE = 01010110
-# JGT = 01010111
-# JLT = 01011000
-# JLE = 01011001
-# JGE = 01011010 
+JMP = 0b01010100
+JEQ = 0b01010101
+JNE = 0b01010110
+JGT = 0b01010111
+JLT = 0b01011000
+JLE = 0b01011001
+JGE = 0b01011010 
 
-# ## Other
-# NOP = 00000000
+## Other
+NOP = 0b00000000
 
-# HLT = 00000001 
+HLT = 0b00000001 
 
-# LDI = 10000010
+LDI = 0b10000010
 
-# LD = 10000011
-# ST = 10000100
+LD = 0b10000011
+ST = 0b10000100
 
-# PUSH = 01000101
-# POP = 01000110
+PUSH = 0b01000101
+POP = 0b01000110
 
-# PRN = 01000111
-# PRA = 01001000
+PRN = 0b01000111
+PRA = 0b01001000
 
 class CPU:
     """Main CPU class."""
@@ -62,7 +62,7 @@ class CPU:
     def __init__(self):
         """Construct a new CPU."""
         self.ram = [0] * 256
-        self.register = [0] * 8
+        self.registers = [0] * 8
         self.pc = 0
         self.running = True
 
@@ -114,31 +114,35 @@ class CPU:
         ), end='')
 
         for i in range(8):
-            print(" %02X" % self.reg[i], end='')
+            print(" %02X" % self.registers[i], end='')
 
         print()
 
     def run(self):
         """Run the CPU."""
         # This is where to add the while loop containing if, ifelse, else statements.
-        instruction_register = [0] * 8
-
-        instruction = self.ram[self.pc]
-
-        operand_a = self.ram_read(self.pc + 1)
-        operand_b = self.ram_read(self.pc + 2)
 
         while self.running:
-            if instruction == LDI:
-                instruction_register[operand_a] = operand_b
+            instruction_register = self.ram_read(self.pc)
+
+            operand_a = self.ram_read(self.pc + 1)
+            operand_b = self.ram_read(self.pc + 2)
+            self.trace()
+
+            if instruction_register == LDI:
+                self.registers[operand_a] = operand_b
                 self.pc += 3
 
-            elif instruction == HLT:
+            elif instruction_register == PRN:
+                print(self.registers[operand_a])
+                self.pc += 2
+
+            elif instruction_register == HLT:
                 print("The program has reached a HALT function and is now ending. Thanks for playing.")
                 self.running = False
 
             else:
-                print(f'Unknown instruction: {instruction}. The program will now force exit.')
+                print(f'Unknown instruction: {instruction_register}. The program will now force exit.')
                 self.running = False
                 sys.exit(1)
             
