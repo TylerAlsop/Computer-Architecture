@@ -10,9 +10,11 @@ class CPU:
 
     def __init__(self):
         """Construct a new CPU."""
-        # add a list for self.ram
-        self.ram = [0] * 8
+        self.ram = [0] * 256
+        self.register = [0] * 8
         self.pc = 0
+        self.running = True
+
 
     def load(self):
         """Load a program into memory."""
@@ -75,8 +77,10 @@ class CPU:
         operand_a = self.ram_read(self.pc + 1)
         operand_b = self.ram_read(self.pc + 2)
 
-        if instruction == LDI:
-            instruction_register[operand_a] = operand_b
+        while self.running:
+            if instruction == LDI:
+                instruction_register[operand_a] = operand_b
+                self.pc += 3
 
 
 
