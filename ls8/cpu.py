@@ -68,7 +68,18 @@ class CPU:
     def run(self):
         """Run the CPU."""
         # This is where to add the while loop containing if, ifelse, else statements.
-        pass
+        instruction_register = [0] * 8
+
+        instruction = self.ram[self.pc]
+
+        operand_a = self.ram_read(self.pc + 1)
+        operand_b = self.ram_read(self.pc + 2)
+
+        if instruction == LDI:
+            instruction_register[operand_a] = operand_b
+
+
+
 
     def ram_read(self, address):    # Should accept the address to read and return the value stored there.
         return self.ram[address]
