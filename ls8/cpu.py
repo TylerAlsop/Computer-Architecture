@@ -5,7 +5,7 @@
 
 import sys
 
-## ALU ops
+## ALU Operation Codes
 ADD = 0b10100000
 SUB = 0b10100001
 MUL = 0b10100010
@@ -93,7 +93,7 @@ class CPU:
         """ALU operations."""
 
         if op == "ADD":
-            self.reg[reg_a] += self.reg[reg_b]
+            self.registers[reg_a] += self.reg[reg_b]
         #elif op == "SUB": etc
         else:
             raise Exception("Unsupported ALU operation")
