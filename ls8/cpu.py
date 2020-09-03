@@ -69,3 +69,11 @@ class CPU:
         """Run the CPU."""
         # This is where to add the while loop containing if, ifelse, else statements.
         pass
+
+    def ram_read(self, address):    # Should accept the address to read and return the value stored there.
+        return self.ram[address]
+
+    def ram_write(self, address, value):            # Should accept a value to write, and the address to write it to.
+        # address could be replaced with MAR (Memory Address Register)
+        # value could be replaced with MDR (Memory Data Register)
+        self.ram[address] = value
