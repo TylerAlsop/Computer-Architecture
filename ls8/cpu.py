@@ -162,6 +162,10 @@ class CPU:
                 print(self.registers[operand_a])
                 self.pc += 2
 
+            elif instruction_register == MUL:
+                operand_a = operand_b * operand_a
+                self.pc += 3
+
             elif instruction_register == HLT:
                 print("The program has reached a HALT function and is now ending. Thanks for playing.")
                 self.running = False
@@ -183,4 +187,4 @@ class CPU:
         self.ram[address] = value
 
 
-self.load(sys.argv[1])
+# self.load('print8.ls8')
