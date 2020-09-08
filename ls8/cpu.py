@@ -67,26 +67,51 @@ class CPU:
         self.running = True
 
 
-    def load(self):
+    if len(sys.argv) != 2:
+        print("Usage: example_cpu.py filename")
+        sys.exit(1)
+
+    def load(self, filename):
         """Load a program into memory."""
 
         address = 0
 
+        try: 
+            with open(filename) as program_file:
+                for line in program_file:
+                    # Split the current line on the # symbol
+                    split_line = line.split('#')
+                    # print(split_line)
+
+                    code_value = split_line[0].strip() # removes whitespace and /n character
+
+                    # Make sure that the value before the # symbol is not empty
+                    if code_value == '':
+                        continue
+
+                    num = int(code_value)
+                    self.ram[address] = num
+                    address += 1
+                    
+        except FileNotFoundError:
+            print(f'{sys.argv[1]} File not found')
+            sys.exit(2)
+
         # For now, we've just hardcoded a program:
 
-        program = [
-            # From print8.ls8
-            0b10000010, # LDI R0,8
-            0b00000000,
-            0b00001000,
-            0b01000111, # PRN R0
-            0b00000000,
-            0b00000001, # HLT
-        ]
+        # program = [
+        #     # From print8.ls8
+        #     0b10000010, # LDI R0,8
+        #     0b00000000,
+        #     0b00001000,
+        #     0b01000111, # PRN R0
+        #     0b00000000,
+        #     0b00000001, # HLT
+        # ]
 
-        for instruction in program:
-            self.ram[address] = instruction
-            address += 1
+        # for instruction in program:
+        #     self.ram[address] = instruction
+        #     address += 1
 
 
     def alu(self, op, reg_a, reg_b):
@@ -156,3 +181,6 @@ class CPU:
         # address could be replaced with MAR (Memory Address Register)
         # value could be replaced with MDR (Memory Data Register)
         self.ram[address] = value
+
+
+self.load(sys.argv[1])
