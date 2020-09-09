@@ -163,7 +163,7 @@ class CPU:
                 self.pc += 2
 
             elif instruction_register == MUL:
-                operand_a = operand_b * operand_a
+                self.registers[operand_a] *= self.registers[operand_b]
                 self.pc += 3
 
             elif instruction_register == HLT:
