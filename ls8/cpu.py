@@ -65,7 +65,7 @@ class CPU:
         self.registers = [0] * 8
         self.pc = 0
         self.running = True
-
+        self.sp = 7
 
     if len(sys.argv) != 2:
         print("Usage: example_cpu.py filename")
@@ -147,6 +147,9 @@ class CPU:
         """Run the CPU."""
         # This is where to add the while loop containing if, ifelse, else statements.
 
+        self.registers[self.sp] = 244
+
+
         while self.running:
             instruction_register = self.ram_read(self.pc)
 
@@ -165,6 +168,18 @@ class CPU:
             elif instruction_register == MUL:
                 self.registers[operand_a] *= self.registers[operand_b]
                 self.pc += 3
+
+            elif instruction_register == PUSH:
+                value_in_register = self.registers[operand_a]
+                self.registers[self.sp] -= 1
+                self.ram[self.registers[self.sp]] = value_in_register
+                self.pc += 2
+
+            elif instruction_register == POP:
+                value_from_memory = self.ram[self.registers[self.sp]]
+                self.registers[operand_a] = value_from_memory
+                self.registers[self.sp] += 1
+                self.pc += 2
 
             elif instruction_register == HLT:
                 print("The program has reached a HALT function and is now ending. Thanks for playing.")
