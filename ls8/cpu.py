@@ -89,7 +89,7 @@ class CPU:
                     if code_value == '':
                         continue
 
-                    num = int(code_value)
+                    num = int(code_value, base=2)
                     self.ram[address] = num
                     address += 1
                     
