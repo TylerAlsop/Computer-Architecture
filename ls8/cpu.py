@@ -181,6 +181,20 @@ class CPU:
                 self.registers[self.sp] += 1
                 self.pc += 2
 
+            elif instruction_register == CALL:
+                # Store the return address (PC + 2) onto the stack
+                self.registers[self.sp] -= 1
+                # write the return address
+                self.ram[self.registers[self.sp]] = self.pc + 2
+                # Set PC to the value inside given_register
+                self.pc = self.registers[operand_a]
+
+            elif instruction_register == RET:
+                # Set PC to the value at the top of the stack
+                self.pc = self.ram[self.registers[self.sp]]
+                # POP from the stack
+                self.registers[self.sp] += 1
+
             elif instruction_register == HLT:
                 print("The program has reached a HALT function and is now ending. Thanks for playing.")
                 self.running = False
