@@ -66,6 +66,7 @@ class CPU:
         self.pc = 0
         self.running = True
         self.sp = 7
+        self.flag = 0b00000000
 
     if len(sys.argv) != 2:
         print("Usage: example_cpu.py filename")
@@ -198,8 +199,17 @@ class CPU:
                 # POP from the stack
                 self.registers[self.sp] += 1
 
+            elif instruction_register == CMP:
+                pass
+
             elif instruction_register == JMP:
                 self.pc = self.registers[operand_a]
+
+            elif instruction_register == JEQ:
+                pass
+
+            elif instruction_register == JNE:
+                pass
 
             elif instruction_register == HLT:
                 print("The program has reached a HALT function and is now ending. Thanks for playing.")
