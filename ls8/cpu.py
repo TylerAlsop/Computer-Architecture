@@ -200,16 +200,28 @@ class CPU:
                 self.registers[self.sp] += 1
 
             elif instruction_register == CMP:
-                pass
+                if self.registers[operand_a] == self.registers[operand_b]:
+                    self.flag = 0b00000001
+                if self.registers[operand_a] > self.registers[operand_b]:
+                    self.flag = 0b00000010
+                if self.registers[operand_a] < self.registers[operand_b]:
+                    self.flag = 0b00000100
+
 
             elif instruction_register == JMP:
                 self.pc = self.registers[operand_a]
 
             elif instruction_register == JEQ:
-                pass
+                if self.flag == 0b00000001:
+                    self.pc = self.registers[operand_a]
+                else:
+                    self.pc += 2
 
             elif instruction_register == JNE:
-                pass
+                if self.flag == 0b00000000:
+                    self.pc = self.registers[operand_a]
+                else:
+                    self.pc += 2
 
             elif instruction_register == HLT:
                 print("The program has reached a HALT function and is now ending. Thanks for playing.")
