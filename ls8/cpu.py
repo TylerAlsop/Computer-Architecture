@@ -2,7 +2,6 @@
 # Do all your work in this file and run it in ls8.py
 # This has a CPU class which needs an __init__, alu(), and run() implemented
 
-
 import sys
 
 ## ALU Operation Codes
