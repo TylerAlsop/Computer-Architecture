@@ -206,6 +206,7 @@ class CPU:
                     self.flag = 0b00000010
                 elif self.registers[operand_a] < self.registers[operand_b]:
                     self.flag = 0b00000100
+                self.pc += 3
 
 
             elif instruction_register == JMP:
