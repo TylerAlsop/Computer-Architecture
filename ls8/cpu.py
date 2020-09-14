@@ -198,6 +198,9 @@ class CPU:
                 # POP from the stack
                 self.registers[self.sp] += 1
 
+            elif instruction_register == JMP:
+                self.pc = operand_a
+
             elif instruction_register == HLT:
                 print("The program has reached a HALT function and is now ending. Thanks for playing.")
                 self.running = False

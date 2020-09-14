@@ -4,6 +4,8 @@
 ; 1
 ; 4
 ; 5
+; ext:asm
+;
 
 LDI R0,10
 LDI R1,20
