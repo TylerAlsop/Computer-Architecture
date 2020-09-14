@@ -202,9 +202,9 @@ class CPU:
             elif instruction_register == CMP:
                 if self.registers[operand_a] == self.registers[operand_b]:
                     self.flag = 0b00000001
-                if self.registers[operand_a] > self.registers[operand_b]:
+                elif self.registers[operand_a] > self.registers[operand_b]:
                     self.flag = 0b00000010
-                if self.registers[operand_a] < self.registers[operand_b]:
+                elif self.registers[operand_a] < self.registers[operand_b]:
                     self.flag = 0b00000100
 
 
@@ -218,7 +218,7 @@ class CPU:
                     self.pc += 2
 
             elif instruction_register == JNE:
-                if self.flag == 0b00000000:
+                if self.flag != 0b00000001:
                     self.pc = self.registers[operand_a]
                 else:
                     self.pc += 2
