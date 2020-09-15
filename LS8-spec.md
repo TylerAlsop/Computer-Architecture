@@ -13,7 +13,7 @@
 > register values in that range.
 
 
-## Internal Registers
+## Internal Registers (internal registers also means variable)
 
 * `PC`: Program Counter, address of the currently executing instruction
 * `IR`: Instruction Register, contains a copy of the currently executing instruction
