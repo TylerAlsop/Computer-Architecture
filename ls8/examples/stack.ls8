@@ -1,31 +1,31 @@
-10000010 # LDI R0,1
+10000010 # LDI R0,1     (register[0] should be 1)
 00000000
 00000001
-10000010 # LDI R1,2
+10000010 # LDI R1,2     (register[1] should be 2)
 00000001
 00000010
-01000101 # PUSH R0
+01000101 # PUSH R0      (memory[243] should be 1)
 00000000
-01000101 # PUSH R1
+01000101 # PUSH R1      (memory[242] should be 2)
 00000001
-10000010 # LDI R0,3
+10000010 # LDI R0,3     (register[0] should be 1)
 00000000
 00000011
-01000110 # POP R0
+01000110 # POP R0       (register[0] should be 2 (coming from memory[242]))
 00000000
-01000111 # PRN R0
+01000111 # PRN R0       (prints 2)
 00000000
-10000010 # LDI R0,4
+10000010 # LDI R0,4     (register[0] should be 4)
 00000000
 00000100
-01000101 # PUSH R0
+01000101 # PUSH R0      (memory[242] should be 4)
 00000000
-01000110 # POP R2
+01000110 # POP R2       (register[2] should be 4 (coming from memory[242]))
 00000010
-01000110 # POP R1
+01000110 # POP R1       (register[1] should be 1 (coming from memory[243]))
 00000001
-01000111 # PRN R2
+01000111 # PRN R2       (prints 4)
 00000010
-01000111 # PRN R1
+01000111 # PRN R1       (prints 1)
 00000001
 00000001 # HLT

@@ -2,7 +2,6 @@
 # Do all your work in this file and run it in ls8.py
 # This has a CPU class which needs an __init__, alu(), and run() implemented
 
-
 import sys
 
 ## ALU Operation Codes
@@ -65,7 +64,8 @@ class CPU:
         self.registers = [0] * 8
         self.pc = 0
         self.running = True
-
+        self.sp = 7
+        self.flag = 0b00000000
 
     if len(sys.argv) != 2:
         print("Usage: example_cpu.py filename")
@@ -118,7 +118,7 @@ class CPU:
         """ALU operations."""
 
         if op == "ADD":
-            self.registers[reg_a] += self.reg[reg_b]
+            self.registers[reg_a] += self.registers[reg_b]
         #elif op == "SUB": etc
         else:
             raise Exception("Unsupported ALU operation")
@@ -147,12 +147,14 @@ class CPU:
         """Run the CPU."""
         # This is where to add the while loop containing if, ifelse, else statements.
 
+        self.registers[self.sp] = 244
+
         while self.running:
             instruction_register = self.ram_read(self.pc)
 
             operand_a = self.ram_read(self.pc + 1)
             operand_b = self.ram_read(self.pc + 2)
-            self.trace()
+            # self.trace()
 
             if instruction_register == LDI:
                 self.registers[operand_a] = operand_b
@@ -162,9 +164,64 @@ class CPU:
                 print(self.registers[operand_a])
                 self.pc += 2
 
+            elif instruction_register == ADD:
+                self.registers[operand_a] += self.registers[operand_b]
+                self.pc += 3
+
             elif instruction_register == MUL:
                 self.registers[operand_a] *= self.registers[operand_b]
                 self.pc += 3
+
+            elif instruction_register == PUSH:
+                value_in_register = self.registers[operand_a]
+                self.registers[self.sp] -= 1
+                self.ram[self.registers[self.sp]] = value_in_register
+                self.pc += 2
+
+            elif instruction_register == POP:
+                value_from_memory = self.ram[self.registers[self.sp]]
+                self.registers[operand_a] = value_from_memory
+                self.registers[self.sp] += 1
+                self.pc += 2
+
+            elif instruction_register == CALL:
+                # Store the return address (PC + 2) onto the stack
+                self.registers[self.sp] -= 1
+                # write the return address
+                self.ram[self.registers[self.sp]] = self.pc + 2
+                # Set PC to the value inside given_register
+                self.pc = self.registers[operand_a]
+
+            elif instruction_register == RET:
+                # Set PC to the value at the top of the stack
+                self.pc = self.ram[self.registers[self.sp]]
+                # POP from the stack
+                self.registers[self.sp] += 1
+
+            elif instruction_register == CMP:
+                if self.registers[operand_a] == self.registers[operand_b]:
+                    self.flag = 0b00000001
+                elif self.registers[operand_a] > self.registers[operand_b]:
+                    self.flag = 0b00000010
+                elif self.registers[operand_a] < self.registers[operand_b]:
+                    self.flag = 0b00000100
+                self.pc += 3
+
+
+            elif instruction_register == JMP:
+                self.pc = self.registers[operand_a]
+
+            elif instruction_register == JEQ:
+                if self.flag == 0b00000001:
+                    self.pc = self.registers[operand_a]
+                else:
+                    self.pc += 2
+
+            elif instruction_register == JNE:
+                if self.flag != 0b00000001:
+                    self.pc = self.registers[operand_a]
+                else:
+                    self.pc += 2
 
             elif instruction_register == HLT:
                 print("The program has reached a HALT function and is now ending. Thanks for playing.")
